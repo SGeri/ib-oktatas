@@ -20,7 +20,7 @@ export default function Home() {
 
         <div className="flex flex-col gap-4 p-6">
           <h1 className="text-4xl mb-4 text-center font-bold">
-            Információsbiztonsági oktatás
+            Információbiztonsági oktatás
           </h1>
           <p className="text-xl">Kedves Kolléga!</p>
 
