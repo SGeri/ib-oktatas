@@ -86,12 +86,7 @@ export function Finished({
         <div className="flex flex-col justify-center items-center gap-2">
           <p className="mb-4">
             Gratulálunk! A tesztet sikeresen teljesítetted, kattints az alábbi
-            gombra, hogy letöltsd a jegyzőkönyvet!
-          </p>
-
-          <p className="mb-4">
-            Kérjük, nyomtasd ki a dokumentumot, írd alá, majd add át Sárffy
-            Veronikának!
+            gombra, hogy letöltsd az IB oktatáson való részvétel igazolását!
           </p>
 
           <Button onClick={handleDownload}>Jegyzőkönyv letöltése</Button>

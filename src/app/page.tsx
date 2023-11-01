@@ -22,23 +22,34 @@ export default function Home() {
           <h1 className="text-4xl mb-4 text-center font-bold">
             Információsbiztonsági oktatás
           </h1>
-          <p className="text-xl italic">Kedves Kollegák!</p>
+          <p className="text-xl">Kedves Kolléga!</p>
 
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec
-            sapien at augue fermentum consectetur. Sed euismod, nisl quis
-            vestibulum consectetur, nunc nisi aliquam justo, id vestibulum eros
-            velit at nisl. Vestibulum ante ipsum primis in faucibus orci luctus
-            et ultrices posuere cubilia curae; Maecenas id est in erat
+            Kérem, hogy a mellékelt Információbiztonsági oktatási anyagot
+            letölteni, majd a tananyaghoz kapcsolódó teszt kérdéssort kitölteni
+            szíveskedj! Sikeres teszt esetén (80%) az oktatasról igazolás
+            készül, melyet kinyomtatva és aláírva a HR részére kérem megküldeni!
+            Sikertelen teszt esetén a teszt ismételten kitölthető.
+          </p>
+
+          <p>Együttműködéseteket megköszönve,</p>
+
+          <p>
+            Üdvözlettel: <br />
+            Sárffy Vera
+            <br />
+            HR
           </p>
 
           <section className="flex flex-col gap-2 space-y-4">
             <p>Az online tananyag az alábbi gombra kattintva érhető el.</p>
 
-            <Link href="/learning-materials">
-              <Button className="flex flex-row gap-2">
-                <ScrollText className="h-4 w-4" /> Tananyag letöltése
-              </Button>
+            <Link href="/ib_alapkepzes.pdf" passHref legacyBehavior>
+              <a target="_blank" rel="noopener noreferrer">
+                <Button className="flex flex-row gap-2">
+                  <ScrollText className="h-4 w-4" /> Tananyag letöltése
+                </Button>
+              </a>
             </Link>
           </section>
 
