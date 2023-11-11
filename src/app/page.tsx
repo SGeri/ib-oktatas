@@ -22,12 +22,12 @@ export default function Home() {
           <h1 className="text-4xl mb-4 text-center font-bold">
             Információbiztonsági oktatás
           </h1>
-          <p className="text-xl">Kedves Kolléga!</p>
+          <p>Kedves Kolléga!</p>
 
           <p>
             Kérem, hogy a mellékelt Információbiztonsági oktatási anyagot
             letölteni, majd a tananyaghoz kapcsolódó teszt kérdéssort kitölteni
-            szíveskedj! Sikeres teszt esetén (80%) az oktatasról igazolás
+            szíveskedj! Sikeres teszt esetén (80%) az oktatásról igazolás
             készül, melyet kinyomtatva és aláírva a HR részére kérem megküldeni!
             Sikertelen teszt esetén a teszt ismételten kitölthető.
           </p>
