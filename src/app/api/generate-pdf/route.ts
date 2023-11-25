@@ -1,14 +1,20 @@
 import { GeneratePdfRequest } from "@/lib/types";
-import fs from "fs";
+import fontkit from "@pdf-lib/fontkit";
 import dayjs from "dayjs";
+import fs from "fs";
 import path from "path";
 import { PDFDocument } from "pdf-lib";
 
 const TEMPLATE_PATH = "src/server/certificate_template.pdf";
+const FONT_PATH = "src/server/Inter-Regular.ttf";
+
+const fontBytes = fs.readFileSync(FONT_PATH);
 
 export async function POST(request: Request) {
-  const { name }: GeneratePdfRequest = await request.json();
-  if (!name) return new Response("Missing name", { status: 400 });
+  const { name: _name }: GeneratePdfRequest = await request.json();
+  if (!_name) return new Response("Missing name", { status: 400 });
+
+  const name = _name.replace(/[^\x00-\x7F]/g, "");
 
   const fileBuffer = getFile();
   const fileName = generateFileName(name);
@@ -39,6 +45,9 @@ async function addTextToPdf(
   now: Date
 ): Promise<Uint8Array> {
   const pdfDoc = await PDFDocument.load(fileBuffer);
+  pdfDoc.registerFontkit(fontkit);
+
+  const customFont = await pdfDoc.embedFont(fontBytes);
 
   const pages = pdfDoc.getPages();
   const firstPage = pages[0];
@@ -51,6 +60,7 @@ async function addTextToPdf(
     x: 200,
     y: firstPage.getHeight() - 326,
     size: 14,
+    font: customFont,
   });
 
   // Expire date
@@ -58,6 +68,7 @@ async function addTextToPdf(
     x: 190,
     y: firstPage.getHeight() - 470,
     size: 14,
+    font: customFont,
   });
 
   // Date
@@ -65,6 +76,7 @@ async function addTextToPdf(
     x: 108,
     y: firstPage.getHeight() - 523,
     size: 14,
+    font: customFont,
   });
 
   const modifiedPdfBytes = await pdfDoc.save();
