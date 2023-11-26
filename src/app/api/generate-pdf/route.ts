@@ -18,8 +18,6 @@ export async function POST(request: Request) {
   const fileName = encodeURI(generateFileName(name));
   const modifiedUintArray8 = await addTextToPdf(fileBuffer, name, new Date());
 
-  fs.writeFileSync(`./${fileName}`, modifiedUintArray8);
-
   return new Response(modifiedUintArray8, {
     headers: {
       "Content-Type": "application/pdf",
