@@ -11,14 +11,14 @@ const FONT_PATH = "src/server/Inter-Regular.ttf";
 const fontBytes = fs.readFileSync(FONT_PATH);
 
 export async function POST(request: Request) {
-  const { name: _name }: GeneratePdfRequest = await request.json();
-  if (!_name) return new Response("Missing name", { status: 400 });
-
-  const name = _name.replace(/[^\x00-\x7F]/g, "");
+  const { name }: GeneratePdfRequest = await request.json();
+  if (!name) return new Response("Missing name", { status: 400 });
 
   const fileBuffer = getFile();
-  const fileName = generateFileName(name);
+  const fileName = encodeURI(generateFileName(name));
   const modifiedUintArray8 = await addTextToPdf(fileBuffer, name, new Date());
+
+  fs.writeFileSync(`./${fileName}`, modifiedUintArray8);
 
   return new Response(modifiedUintArray8, {
     headers: {
