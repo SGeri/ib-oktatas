@@ -4,9 +4,8 @@ import dayjs from "dayjs";
 import { PDFDocument } from "pdf-lib";
 
 const TEMPLATE_URL =
-  "https://cdn.discordapp.com/attachments/1196170300321185876/1196170339818930217/INNOPAY_IB_CERT_TEMPLATE.pdf?ex=65b6a770&is=65a43270&hm=f57061e74f82937dce77a0ac9be09a122c4fbd89198ab0009a0325099ee76a77&";
-const FONT_URL =
-  "https://cdn.discordapp.com/attachments/1196170300321185876/1196170340104155327/Inter-Regular.ttf?ex=65b6a770&is=65a43270&hm=89188c4c54aabefe8be40500b6d9afaf47841ea28639216158a88d552d2e7672&";
+  "https://innopay-ib-oktatas.vercel.app/INNOPAY_IB_CERT_TEMPLATE.pdf";
+const FONT_URL = "https://innopay-ib-oktatas.vercel.app/Inter-Regular.ttf";
 
 export async function POST(request: Request) {
   const { name }: GeneratePdfRequest = await request.json();
