@@ -1,21 +1,18 @@
 import { GeneratePdfRequest } from "@/lib/types";
 import fontkit from "@pdf-lib/fontkit";
 import dayjs from "dayjs";
-import fs from "fs";
-import path from "path";
 import { PDFDocument } from "pdf-lib";
 
-const TEMPLATE_PATH = ["src", "server", "certificate_template.pdf"];
-const FONT_PATH = ["src", "server", "Inter-Regular.ttf"];
-
-const fontPath = path.join(process.cwd(), ...FONT_PATH);
-const fontBytes = fs.readFileSync(fontPath);
+const TEMPLATE_URL =
+  "https://cdn.discordapp.com/attachments/1196170300321185876/1196170339818930217/INNOPAY_IB_CERT_TEMPLATE.pdf?ex=65b6a770&is=65a43270&hm=f57061e74f82937dce77a0ac9be09a122c4fbd89198ab0009a0325099ee76a77&";
+const FONT_URL =
+  "https://cdn.discordapp.com/attachments/1196170300321185876/1196170340104155327/Inter-Regular.ttf?ex=65b6a770&is=65a43270&hm=89188c4c54aabefe8be40500b6d9afaf47841ea28639216158a88d552d2e7672&";
 
 export async function POST(request: Request) {
   const { name }: GeneratePdfRequest = await request.json();
   if (!name) return new Response("Missing name", { status: 400 });
 
-  const fileBuffer = getFile();
+  const fileBuffer = await getFile(TEMPLATE_URL);
   const fileName = encodeURI(generateFileName(name));
   const modifiedUintArray8 = await addTextToPdf(fileBuffer, name, new Date());
 
@@ -29,9 +26,10 @@ export async function POST(request: Request) {
   });
 }
 
-const getFile = () => {
-  const filePath = path.join(process.cwd(), ...TEMPLATE_PATH);
-  return fs.readFileSync(filePath);
+const getFile = async (url: string): Promise<Buffer> => {
+  const response = await fetch(url);
+  const arrayBuffer = await response.arrayBuffer();
+  return Buffer.from(arrayBuffer);
 };
 
 function generateFileName(name: string) {
@@ -45,6 +43,10 @@ async function addTextToPdf(
 ): Promise<Uint8Array> {
   const pdfDoc = await PDFDocument.load(fileBuffer);
   pdfDoc.registerFontkit(fontkit);
+
+  const fontResponse = await fetch(FONT_URL);
+  const fontArrayBuffer = await fontResponse.arrayBuffer();
+  const fontBytes = new Uint8Array(fontArrayBuffer);
 
   const customFont = await pdfDoc.embedFont(fontBytes);
 
